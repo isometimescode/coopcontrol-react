@@ -21,6 +21,9 @@ class MainMenu extends Component {
           <Menu.Item active={this.state.visible}  onClick={() => this.handleClick()}>
             <Icon name='video camera' /> Live Cam
           </Menu.Item>
+          <Menu.Item href='https://github.com/isometimescode/coopcontrol-react' target='_blank' position='right'>
+            <Icon name='github' size='large' /> GitHub
+          </Menu.Item>
         </Menu>
 
         <Transition visible={this.state.visible} animation='fade' duration={800} transitionOnMount unmountOnHide>
