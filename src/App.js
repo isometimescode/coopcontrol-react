@@ -27,7 +27,7 @@ class App extends Component {
     });
 
     return (
-      <Container text className="main">
+      <Container text>
         <ErrorMessage message={this.state.error} />
         <Segment basic>
           <Loading active={!this.state.isLoaded} />
