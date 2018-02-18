@@ -1,21 +1,19 @@
 import React from 'react';
 import { Icon, Message, Dimmer, Loader } from 'semantic-ui-react';
 
-function ErrorMessage({message}) {
+function ErrorMessage({message, header_name, ...layout}) {
   if (!message) {
     return null;
   }
 
   return(
-    <div>
-      <Message negative icon>
-        <Icon name="warning sign" />
-        <Message.Content>
-          <Message.Header>An error has occurred.</Message.Header>
-          {message}
-        </Message.Content>
-      </Message>
-    </div>
+    <Message negative icon {...layout}>
+      <Icon name="warning sign" />
+      <Message.Content>
+        <Message.Header>An error has occurred{header_name ? ' on: ' + header_name : ''}.</Message.Header>
+        {message}
+      </Message.Content>
+    </Message>
   );
 }
 

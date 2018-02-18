@@ -21,4 +21,10 @@ describe('<ErrorMessage />', () => {
     const wrapper = shallow(<ErrorMessage />);
     expect(wrapper.getElement()).toBeNull();
   });
+
+  it('passes extra layout options to child', () => {
+    const props = {color: "violet", floating: true};
+    const wrapper = shallow(<ErrorMessage message="my error" {...props} />);
+    expect(wrapper.find("Message").props()).toMatchObject(props);
+  });
 });

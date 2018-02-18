@@ -1,38 +1,66 @@
 import React, { Component } from 'react';
-import { Container, Segment } from 'semantic-ui-react';
+import { Container, Card } from 'semantic-ui-react';
 import ActionCard from './ActionCard';
-import {ErrorMessage, Loading} from './FlashMessage';
+import {ErrorMessage} from './FlashMessage';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       error: null,
-      isLoaded: true,
-      door: {id: 1, status: 1, status_name: ["closed", "open"], status_actions: ["close", "open"], start: "2018-02-04T07:30:38-08:00", end: "2018-02-04T17:15:49-08:00"},
-      light: {id: 2, status: 0, status_name: ["off", "on"], status_actions: ["turn off", "turn on"], start: "2018-02-04T04:15:49-08:00", end: "2018-02-04T07:30:38-08:00"}
+      items: ['door', 'light']
+    };
+
+    for(let name of this.state.items) {
+      this.state[name] = {
+        error: null,
+        isLoaded: false,
+        isDisabled: true,
+        data: {}
+      }
     };
   }
 
+  componentDidMount() {
+    for(let name of this.state.items) {
+      this.callAPI(name, "/info/" + name + "/");
+    };
+  }
+
+  componentDidCatch(err, info) {
+    this.setState({error: err.toString()});
+  }
+
+  callAPI(name, url, data) {
+    fetch(process.env.REACT_APP_API_URL + url, data)
+      .then(res => {
+        if (res.ok) { return res; }
+        throw new Error(res.statusText);
+      })
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({[name]: {data: result, isLoaded: true, isDisabled: false}});
+      })
+      .catch((err) => {
+        this.setState({[name]: {error: err.toString(), isLoaded: true, isDisabled: true, data: {}}});
+      });
+  }
+
   handleClick(name) {
-    let obj = Object.assign({}, this.state[name]);
-    obj.status = obj.status === 1 ? 0 : 1;
-    this.setState({[name]: obj});
+    alert("You clicked " + name);
   }
 
   render() {
-    let cards = ['door', 'light'].map( name => {
-      var obj = this.state[name];
-      return (<ActionCard key={obj.id} name={name} {...obj} onClick={() => this.handleClick(name)}/>);
+    const cards = this.state.items.map(name => {
+      return (<ActionCard key={name} name={name} {...this.state[name]} onClick={() => this.handleClick(name)} />);
     });
 
     return (
-      <Container text>
+      <Container className='main'>
         <ErrorMessage message={this.state.error} />
-        <Segment basic>
-          <Loading active={!this.state.isLoaded} />
+        <Card.Group centered doubling stackable>
           {cards}
-        </Segment>
+        </Card.Group>
       </Container>
     );
   }
