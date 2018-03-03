@@ -17,7 +17,7 @@ class MainMenu extends Component {
     return (
       <div>
         <Menu size='massive' inverted borderless attached='top' pointing>
-          <Menu.Item header>Coop Control</Menu.Item>
+          <Menu.Item header href='/'>Coop Control</Menu.Item>
           <Menu.Item active={this.state.visible}  onClick={() => this.handleClick()}>
             <Icon name='video camera' /> Live Cam
           </Menu.Item>

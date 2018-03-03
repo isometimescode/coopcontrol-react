@@ -31,23 +31,52 @@ class App extends Component {
     this.setState({error: err.toString()});
   }
 
-  callAPI(name, url, data) {
-    fetch(process.env.REACT_APP_API_URL + url, data)
+  callAPI(name, path, requestdata={}) {
+    requestdata['headers'] = {"Accept": "application/json"};
+    fetch(
+      process.env.REACT_APP_API_URL + path, requestdata)
       .then(res => {
-        if (res.ok) { return res; }
-        throw new Error(res.statusText);
+        return res.json().then(data => {
+          if (res.ok) {
+            return data;
+          } else {
+            return Promise.reject({status: res.status, data});
+          }
+        });
       })
-      .then(res => res.json())
-      .then((result) => {
-        this.setState({[name]: {data: result, isLoaded: true, isDisabled: false}});
+      .then(result => {
+        this.setState({
+          [name]: {data: result, isLoaded: true, isDisabled: false }
+        });
       })
-      .catch((err) => {
-        this.setState({[name]: {error: err.toString(), isLoaded: true, isDisabled: true, data: {}}});
+      .catch(err => {
+        const message = err['data'] && err['data']['message']
+          ? err['data'] && err['data']['message']
+          : err.toString();
+
+        this.setState({
+          [name]: {error: message, isLoaded: true, isDisabled: true, data: {}}
+        });
       });
   }
 
   handleClick(name) {
-    alert("You clicked " + name);
+    const data = this.state[name]['data'];
+    this.setState({
+      [name]: {error: null, isLoaded: false, isDisabled: false, data: data}
+    });
+
+    let formData = new FormData();
+    formData.append('status', data['status'] ? 0 : 1);
+
+    this.callAPI(
+      name,
+      "/update/id/" + this.state[name]['data']['id'] + "/",
+      {
+        body: formData,
+        method: "POST"
+      }
+    );
   }
 
   render() {
