@@ -17,3 +17,8 @@ You will need to set the following variables in [`.env.local`](https://github.co
 | --- | --- | --- |
 | `REACT_APP_LIVE_CAM_URL` | URL for the live video cam | http://via.placeholder.com/600x400 |
 | `REACT_APP_API_URL` | URL for making requests to the status API | https://baba1f49-c561-44fa-afdd-855efbf43f34.mock.pstmn.io |
+
+
+#### Attribution
+
+Icon from [Online Web Fonts](http://www.onlinewebfonts.com/icon) and modified with [RealFaviconGenerator.net](https://realfavicongenerator.net).
