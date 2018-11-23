@@ -15,7 +15,7 @@ class MainMenu extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <Menu size='massive' inverted borderless attached='top' pointing>
           <Menu.Item header href='/'>Coop Control</Menu.Item>
           <Menu.Item active={this.state.visible}  onClick={() => this.handleClick()}>
@@ -31,7 +31,7 @@ class MainMenu extends Component {
             <Image centered src={process.env.REACT_APP_LIVE_CAM_URL} />
           </Segment>
         </Transition>
-      </div>
+      </>
     );
   }
 }

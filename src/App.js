@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Card } from 'semantic-ui-react';
+import { Segment, Card } from 'semantic-ui-react';
 import ActionCard from './ActionCard';
+import MainMenu from './MainMenu';
 import {ErrorMessage} from './FlashMessage';
 
 class App extends Component {
@@ -85,12 +86,15 @@ class App extends Component {
     });
 
     return (
-      <Container className='main'>
-        <ErrorMessage message={this.state.error} />
-        <Card.Group centered doubling stackable>
-          {cards}
-        </Card.Group>
-      </Container>
+      <>
+        <MainMenu />
+        <Segment basic className='main'>
+          <ErrorMessage message={this.state.error} />
+          <Card.Group centered doubling stackable>
+            {cards}
+          </Card.Group>
+        </Segment>
+      </>
     );
   }
 }
