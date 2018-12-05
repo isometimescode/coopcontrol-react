@@ -24,7 +24,14 @@ class App extends Component {
 
   componentDidMount() {
     for(let name of this.state.items) {
-      this.callAPI(name, "/info/" + name + "/");
+      if (window.APP_CONFIG) {
+        let url = window.APP_CONFIG.REACT_APP_API_URL + "/info/" + name + "/";
+        this.callAPI(name, url);
+      } else {
+        this.setState({
+          [name]: {error: "API_URL is missing", isLoaded: true, isDisabled: true, data: {}}
+        });
+      }
     };
   }
 
@@ -32,10 +39,9 @@ class App extends Component {
     this.setState({error: err.toString()});
   }
 
-  callAPI(name, path, requestdata={}) {
+  callAPI(name, url, requestdata={}) {
     requestdata['headers'] = {"Accept": "application/json"};
-    fetch(
-      process.env.REACT_APP_API_URL + path, requestdata)
+    fetch(url, requestdata)
       .then(res => {
         return res.json().then(data => {
           if (res.ok) {

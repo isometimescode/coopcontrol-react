@@ -28,7 +28,7 @@ class MainMenu extends Component {
 
         <Transition visible={this.state.visible} animation='fade' duration={800} transitionOnMount unmountOnHide>
           <Segment attached tertiary>
-            <Image centered src={process.env.REACT_APP_LIVE_CAM_URL} />
+            <Image centered src={window.APP_CONFIG && window.APP_CONFIG.REACT_APP_LIVE_CAM_URL} />
           </Segment>
         </Transition>
       </>
