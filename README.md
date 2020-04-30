@@ -2,7 +2,7 @@
 
 ## Web Service & Status Page
 
-This is an experimental status and control page for my [Rapsberry Pi Coop Control](https://github.com/isometimescode/coopcontrol) project. You can view a sample version at https://coopcontrol-react.netlify.com.
+This is an experimental status and control page for my [Rapsberry Pi Coop Control](https://github.com/isometimescode/coopcontrol) project. You can view a sample version at https://coopcontrol-react.netlify.app.
 
 ![screenshot](https://user-images.githubusercontent.com/7094373/36333895-6aa86bc4-132e-11e8-9b9e-fa8f8444728f.png)
 
