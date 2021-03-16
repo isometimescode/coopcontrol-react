@@ -1,4 +1,8 @@
-# Automated Chicken Coop Control
+# ⚠️ This code is no longer maintained. ⚠️
+
+Since I created this repo, many easy-to-use smart home hub options have become available. It's likely easier and more maintainable to move to a fully-featured solution like OpenHab, HomeAssistant, etc. 
+
+## Automated Chicken Coop Control **ARCHIVED**
 
 ## Web Service & Status Page
 
